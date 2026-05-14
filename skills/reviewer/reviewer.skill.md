@@ -23,6 +23,7 @@ This agent reads and follows:
 - `{{paths.instructions_dir}}/commit-conventions.instructions.md` — commit message format
 - `{{paths.instructions_dir}}/validation-framework.instructions.md` — `@reviewer` enforces the "Enforcement (for @reviewer)" block: CRITICAL when a `@pm → @planner` handoff is missing a validation record, WARNING for tests with verdicts but no reasoning, SUGGESTION for REFRAMED records missing original/reframed pair
 - `{{paths.instructions_dir}}/handoff-rejection-format.instructions.md` — `@reviewer` enforces the "Enforcement (for @reviewer)" block: CRITICAL when `@planner` silently scales down or drops scope without a REJ-NNN entry, WARNING for REJ entries missing Proposed resolution, SUGGESTION for REJ entries OPEN >14 days
+- `{{paths.instructions_dir}}/commercial-validation.instructions.md` — `@reviewer` enforces the "Enforcement (for @reviewer)" block: CRITICAL when a `@pm → @planner` handoff lands without a corresponding `<slug>-commercial.md` in `{{paths.validation}}`, WARNING for commercial records with verdicts but no reasoning sentence, SUGGESTION for FAIL verdicts with no failure-mode notes
 
 ### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
 
@@ -90,6 +91,9 @@ Only runs when the diff touches `{{paths.drafts}}/`, `{{paths.validation}}/`, `{
 - **WARNING:** `{{paths.rejections}}` entry missing `Proposed resolution:` field.
 - **SUGGESTION:** REFRAMED validation record missing both original and reframed framings.
 - **SUGGESTION:** REJ entry OPEN for >14 days (age = today − `Raised:` date) with no `Response:` block.
+- **CRITICAL:** `@pm → @planner` handoff lands without a corresponding `<slug>-commercial.md` in `{{paths.validation}}`.
+- **WARNING:** Commercial record (`{{paths.validation}}/<slug>-commercial.md`) has any test verdict without a reasoning sentence.
+- **SUGGESTION:** Commercial record has FAIL verdicts with no failure-mode notes explaining why the test failed.
 
 ## Report Format
 
