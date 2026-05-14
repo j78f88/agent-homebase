@@ -45,6 +45,16 @@ This agent reads and follows:
 - `{{paths.instructions_dir}}/subagent-return-schemas.instructions.md` — structured return schemas for subagent mode invocations
 - `{{paths.instructions_dir}}/retro-report.instructions.md` — RETRO.md seeding format (§ Seeded RETRO.md Structure)
 
+### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
+
+The entries above define artefact FORMAT (required sections, naming, severity rules). The adapter files below define LOCATION (Linear comment vs filesystem path). In tracker mode, read both — format from the existing instructions, location from the adapter.
+
+- `{{paths.instructions_dir}}/tracker-adapter-core.instructions.md` — required when tracker is non-filesystem; two-tier model, comment header convention, verification grounding
+- `{{paths.instructions_dir}}/tracker-adapter-backlog.instructions.md` — ledger reads/writes go to Linear issue fields and comments
+- `{{paths.instructions_dir}}/tracker-adapter-drafts.instructions.md` — drafts and brainstorms live as Linear comments
+- `{{paths.instructions_dir}}/tracker-adapter-handoffs.instructions.md` — handoffs and REJ entries live as comments paired with state transitions
+- `{{paths.instructions_dir}}/tracker-adapter-reference-docs.instructions.md` — NON_GOALS / ROADMAP / FEATURE_MATRIX live as Linear Documents
+
 ---
 
 ## Subagent Mode
@@ -233,11 +243,4 @@ At natural stopping points, use #tool:askQuestions to present the next action as
 | "Review pipeline (`/review-pipeline`)"                  | 2+ draft plans exist                                                                              | —                                     |
 | "Combine drafts (`/combine-drafts`)"                    | 2+ related drafts exist                                                                           | —                                     |
 | "Triage bugs (`/triage-bugs`)"                          | Open bugs exist in backlog                                                                        | Yes, if 🔴 bugs exist                 |
-| "Capture a bug (`@bug`)"                                | Always                                                                                            | —                                     |
-| "Clean up planning docs (`/plan-cleanup`)"              | Always (low priority)                                                                             | —                                     |
-| "Hand off to Sprint Lead"                               | Promoted sprint exists                                                                            | —                                     |
-| "Done for now"                                          | Always                                                                                            | —                                     |
-
-**Context-aware filtering:** Only show options that are relevant. Include actual draft filenames and open bug count in the question text when available.
-
-The menu is context-aware: include actual draft filenames, suggest promotion if a draft-plan exists, suggest brainstorm-to-ideation if a brainstorm exists.
+| "Capture a bug (`@bug`)"                                |

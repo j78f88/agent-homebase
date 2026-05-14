@@ -52,6 +52,15 @@ This agent reads and follows:
 - `{{paths.instructions_dir}}/backlog-ledger.instructions.md` — ledger schema, governance, and escalation rules
 - `{{paths.instructions_dir}}/subagent-return-schemas.instructions.md` — structured return schemas for subagent mode invocations
 
+### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
+
+The entries above define artefact FORMAT. The adapter files below define LOCATION (Linear comments and documents instead of filesystem paths). In tracker mode, read both.
+
+- `{{paths.instructions_dir}}/tracker-adapter-core.instructions.md` — required when tracker is non-filesystem; conventions and verification grounding
+- `{{paths.instructions_dir}}/tracker-adapter-validations.instructions.md` — validation records (5-test, commercial) live as Linear comments
+- `{{paths.instructions_dir}}/tracker-adapter-handoffs.instructions.md` — handoffs to @planner and REJ entries
+- `{{paths.instructions_dir}}/tracker-adapter-reference-docs.instructions.md` — ROADMAP and NON_GOALS updates target Linear Documents
+
 ---
 
 ## Subagent Mode
@@ -157,9 +166,4 @@ At the start of any session:
 2. **Read ledger summary** from `{{paths.backlog_ledger}}` — note open item counts by type and debt pressure score. When validating features, factor debt pressure into your reasoning:
    - High debt pressure (≥20 open debt items): mention that new features compete with debt resolution — the user should weigh this
    - Escalated items (Def ≥ {{escalation.def_p0_threshold}}): note that mandatory P0 items exist that will consume sprint capacity
-3. Read `{{paths.roadmap}}` for current phase context
-4. List `{{paths.validation}}/` for any open validation docs from prior sessions
-5. Check `{{paths.non_goals}}` for standing rejections the current request might conflict with
-6. Check `{{paths.backlog_ledger}}` for items where Type = `rejection` and Status = `open` — if any exist with `To: @pm`, read the corresponding REJ-NNN entry in `{{paths.rejections}}` for context. These are pending revisions from `@planner` that need a Response block before proceeding with new work
-7. **Check `{{paths.handoffs}}`** for manifests addressed to `@pm`. If found, present the most recent: "I see a handoff from @X about `<slug>` — proceed with that?" On acceptance, archive it to `{{paths.handoffs}}archive/`.
-8. Proceed with the requested workflow
+3. Read 

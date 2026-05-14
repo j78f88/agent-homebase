@@ -24,6 +24,14 @@ This agent reads and follows:
 - `{{paths.instructions_dir}}/validation-framework.instructions.md` — `@reviewer` enforces the "Enforcement (for @reviewer)" block: CRITICAL when a `@pm → @planner` handoff is missing a validation record, WARNING for tests with verdicts but no reasoning, SUGGESTION for REFRAMED records missing original/reframed pair
 - `{{paths.instructions_dir}}/handoff-rejection-format.instructions.md` — `@reviewer` enforces the "Enforcement (for @reviewer)" block: CRITICAL when `@planner` silently scales down or drops scope without a REJ-NNN entry, WARNING for REJ entries missing Proposed resolution, SUGGESTION for REJ entries OPEN >14 days
 
+### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
+
+The entries above define what @reviewer enforces. The adapter files below tell @reviewer WHERE to look for validation records, REJ entries, and handoffs in Linear comments. In tracker mode, read both.
+
+- `{{paths.instructions_dir}}/tracker-adapter-core.instructions.md` — required when tracker is non-filesystem; verification grounding rule is critical for @reviewer's gate
+- `{{paths.instructions_dir}}/tracker-adapter-validations.instructions.md` — where to find Validation Records and Commercial Validation comments
+- `{{paths.instructions_dir}}/tracker-adapter-handoffs.instructions.md` — where to find REJ entries and Handoff manifests
+
 ## Review Scope
 
 When asked to review, determine the scope:
@@ -106,23 +114,3 @@ Use severity levels from `{{paths.instructions_dir}}/severity-levels.instruction
 ```
 
 ## Machine-Readable Summary
-
-After the human-readable report above, also output a fenced JSON block that `@sprint-lead` will parse for the RETRO.md retrospective. Fill every field from your review results:
-
-```json
-{
-  "criticalCount": 0,
-  "warningCount": 0,
-  "suggestionCount": 0,
-  "allCriticalResolved": true,
-  "filesReviewed": 0
-}
-```
-
-## Constraints
-
-- DO NOT modify any source code — report findings only
-- DO NOT review against theoretical ideals — compare against existing codebase patterns
-- Read `{{paths.copilot_instructions}}` for architecture rules and code style
-- Read `{{paths.memory_conventions}}` if it exists for additional conventions
-- Be specific — include file paths, line numbers, and concrete fixes

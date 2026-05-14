@@ -23,6 +23,14 @@ This agent reads and follows:
 - `{{paths.instructions_dir}}/askquestions-contract.instructions.md` — question UI rules
 - `{{paths.instructions_dir}}/commit-conventions.instructions.md` — commit format for bug captures
 
+### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
+
+The entries above define bug entry FORMAT. The adapter files below define LOCATION (Linear issue with `Bug` label and `## Bug Intake` comment, instead of BUG_BACKLOG.md row). In tracker mode, read both.
+
+- `{{paths.instructions_dir}}/tracker-adapter-core.instructions.md` — required when tracker is non-filesystem
+- `{{paths.instructions_dir}}/tracker-adapter-backlog.instructions.md` — create the Linear issue with `Bug` label, severity in label or priority field
+- `{{paths.instructions_dir}}/tracker-adapter-handoffs.instructions.md` — handoff to @planner when the bug needs triage
+
 ## Severity Note
 
 This agent classifies bug **user-impact** (🔴/🟡/🟢/⚪) — a triage dimension. This is orthogonal to the gate-finding severity (CRITICAL/WARNING/SUGGESTION) defined in `severity-levels.instructions.md`. See that file's carve-out.
@@ -109,22 +117,4 @@ Before showing the handoff button, write a manifest to `{{paths.handoffs}}<date>
 from: "@bug"
 to: "@planner"
 date: YYYY-MM-DD
-feature: <{{ids.bug_prefix}}-NNN slug>
-artifact: {{paths.bug_backlog}}#{{ids.bug_prefix}}-NNN
-status: reported
-notes: <one-line bug summary>
----
-```
-
-Also present a copy-pasteable context block as fallback.
-
----
-
-## Constraints
-
-- **Never diagnose or investigate code** — capture only, hand off for analysis
-- **Never modify existing backlog entries** — append only
-- **Never delete screenshots** — cleanup is handled by `/plan-cleanup`
-- **Never assign sprint numbers or statuses beyond OPEN** — that's `/triage-bugs` territory
-- **Never write files without user confirmation** — always show the entry first
-- **Keep it fast** — aim for ~30 seconds per bug report
+feature: <{{ids.bug_prefix

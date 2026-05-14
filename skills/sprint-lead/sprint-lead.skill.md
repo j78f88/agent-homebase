@@ -41,6 +41,14 @@ This agent reads and follows:
 - `{{paths.instructions_dir}}/commit-conventions.instructions.md` — commit message format
 - `{{paths.instructions_dir}}/retro-report.instructions.md` — RETRO.md schema, complexity scale, process ledger fields
 
+### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
+
+The entries above define artefact FORMAT. The adapter files below define LOCATION (Linear cycles and comments instead of sprints/sprint-N/ folders). In tracker mode, read both.
+
+- `{{paths.instructions_dir}}/tracker-adapter-core.instructions.md` — required when tracker is non-filesystem; verification grounding is the critical rule for Phase 3 QA
+- `{{paths.instructions_dir}}/tracker-adapter-sprints.instructions.md` — cycle composition replaces PLAN.md; RETRO becomes a Linear Document
+- `{{paths.instructions_dir}}/tracker-adapter-handoffs.instructions.md` — handoff manifests and REJ entries
+
 ---
 
 ## Retrospective Instrumentation
@@ -365,11 +373,4 @@ See `{{paths.instructions_dir}}/sprint-docs-format.instructions.md` for the full
 
 - DO NOT start work without reading the `PLAN.md` first — never improvise scope
 - DO NOT implement code directly in the main conversation — always delegate to subagents
-- DO NOT read source files in the main conversation except for `PLAN.md`, `{{paths.sprints_doc}}`, and memory files
-- DO NOT skip quality gates — every sprint gets Phase 2.5 safety-net + Phase 3 specialist gates
-- DO NOT skip the sprint report — always generate it at completion
-- DO NOT push to git in autopilot mode — leave push for the user
-- ONLY use `{{paths.sprints_doc}}` and `PLAN.md` as the source of truth for progress
-- If a subagent returns `"blocked"`, document it and move to the next independent task
-- At every interactive EXIT POINT, always include the reminder message so the user knows the next command
-- DO NOT modify `{{paths.non_goals}}` — this file is owned by @planner. Defer any requested changes to @planner.
+- DO NOT read source files in the main conversation except for `PLAN.
