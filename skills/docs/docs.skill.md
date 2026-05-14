@@ -30,6 +30,15 @@ This agent reads and follows:
 - `{{paths.instructions_dir}}/severity-levels.instructions.md` — severity contract (note: @docs CRITICAL does not block push per severity-levels)
 - `{{paths.instructions_dir}}/subagent-return-schemas.instructions.md` — structured return schemas for subagent mode invocations
 
+### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
+
+The entries above define documentation FORMAT (SPRINTS archive, FEATURE_MATRIX format, changelog schema). The adapter files below define LOCATION (Linear Documents for reference, Linear comments for issue-scoped activity). In tracker mode, read both.
+
+- `{{paths.instructions_dir}}/tracker-adapter-core.instructions.md` — required when tracker is non-filesystem
+- `{{paths.instructions_dir}}/tracker-adapter-reference-docs.instructions.md` — FEATURE_MATRIX, NON_GOALS, ROADMAP, engagement docs are Linear Documents
+- `{{paths.instructions_dir}}/tracker-adapter-sprints.instructions.md` — retros are Linear Documents per cycle
+- `{{paths.instructions_dir}}/tracker-adapter-observability.instructions.md` — Strategic Brief + Decision Log Documents + Attention Required labels. @docs maintains these on its post-sprint cadence
+
 ---
 
 ## Before Writing Anything
@@ -179,19 +188,4 @@ Run this COMPLETE workflow every time you are asked to sync/update docs. Do NOT 
 
 ### Step 4: Developer Docs
 
-10. **`{{paths.technical_debt}}`** — New resolved items added? New tech debt logged? Test counts current? "Last Updated" date current? **Heading consistency:** When marking an item resolved, update the section heading to reflect the new status.
-11. **`{{paths.architecture_doc}}`** — New patterns or stores documented?
-12. **`{{paths.decisions}}`** — ADRs for sprint architectural decisions present?
-13. **`{{paths.testing_doc}}`** — Relative links resolve? Test commands still work?
-
-### Step 5: README
-
-14. **`README.md`** — Feature list current? Structure diagram matches actual directories? Sprint roadmap table statuses correct? All internal links valid? Agent/skill tables match what's actually deployed?
-
-### Step 6: Link Validation
-
-15. For every `[text](path)` link in files you touched, verify the target file exists. Fix or remove broken links.
-
-### Step 7: Commit
-
-Commit per `{{paths.instructions_dir}}/commit-conventions.instructions.md` (e.g., `docs: sync documentation for Sprint N completion`).
+10. **`{{paths.technical_debt}}`** — New resolved items added? New tech debt logged? Test counts current? "Last Updated" dat

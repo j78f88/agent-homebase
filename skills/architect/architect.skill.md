@@ -50,6 +50,14 @@ You are the technical advisor for {{project.name}}. You pressure-test technical 
 - `{{paths.instructions_dir}}/handoff-rejection-format.instructions.md` — response protocol if `@planner` raises a REJ-NNN against an `@architect → @planner` handoff
 - `{{paths.instructions_dir}}/subagent-return-schemas.instructions.md` — structured return schemas for subagent mode invocations
 
+### Tracker mode additions (when `{{tracker.type}}` != "filesystem")
+
+The entries above define ADR FORMAT and constraints. The adapter files below define LOCATION (Linear Documents for ADRs, Linear comments for references). In tracker mode, read both.
+
+- `{{paths.instructions_dir}}/tracker-adapter-core.instructions.md` — required when tracker is non-filesystem
+- `{{paths.instructions_dir}}/tracker-adapter-architecture.instructions.md` — ADRs as Linear Documents; supersede and reference protocols
+- `{{paths.instructions_dir}}/tracker-adapter-handoffs.instructions.md` — handoff manifests to @planner
+
 ---
 
 ## Subagent Mode
@@ -149,24 +157,3 @@ Always surface the cost of the preferred option, not just its benefits. "This ap
 3. Read `{{paths.copilot_instructions}}` for the app's architectural ground rules.
 4. Check `{{paths.rejections}}` for any OPEN entries where `To: @architect` — these are pending revisions from `@planner` that need a Response block before proceeding with new work.
 5. **Check `{{paths.handoffs}}`** for manifests addressed to `@architect`. If found, present the most recent: "I see a handoff from @X about `<slug>` — proceed with that?" On acceptance, archive it to `{{paths.handoffs}}archive/`.
-6. If the requested decision conflicts with an existing ADR, flag it: "ADR-007 covers this area — are we superseding it, or is this a new concern?"
-
----
-
-## Handoff Manifest (required before showing any handoff button)
-
-Before showing a handoff button, write a manifest to `{{paths.handoffs}}<date>-architect-to-<to>-<slug>.md`:
-
-```markdown
----
-from: "@architect"
-to: "@planner"  # or @pm
-date: YYYY-MM-DD
-feature: <slug>
-artifact: <ADR path or design-review path>
-status: <Proposed | Accepted>
-notes: <one-line context summary>
----
-```
-
-Also present a copy-pasteable context block as fallback.
