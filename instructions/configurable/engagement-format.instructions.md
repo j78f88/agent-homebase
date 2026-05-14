@@ -35,9 +35,10 @@ Status is tracked in `gate-log.md` via the most recent entry's gate/decision com
 - VALIDATING: Gate 1 pending
 - PLANNING: Gate 1 approved, Gate 2 pending
 - EXECUTING: Gate 2 approved, @sprint-lead in progress
-- TESTING: Sprint complete, test deployment pending/in-progress
-- DEPLOYING: Gate 3 approved, production deployment pending
-- COMPLETE: Gate 4 confirmed
+- COMMERCIAL REVIEW: Sprint complete, Gate 3 (Commercial Readiness) pending
+- TESTING: Gate 3 approved, test deployment pending/in-progress
+- DEPLOYING: Gate 4 approved, production deployment pending
+- COMPLETE: Gate 5 confirmed
 - CANCELLED: Any gate rejected or CTO abort
 
 ## Brief Format (`brief.md`)
@@ -79,7 +80,7 @@ Use template from `docs/templates/gate-log.md`. Sprint-scoped, multi-sprint read
 |------|--------|------|----------|--------|
 ```
 
-**Gate values:** Requirements, Plan, Test Deploy, Production
+**Gate values:** Requirements, Plan, Commercial Readiness, Test Deploy, Production
 **Decision values:** APPROVED, REJECTED, OVERRIDE, SIZE-OVERRIDE, FAILED, CONFIRMED, CANCELLED, FIX-REQUESTED
 
 ## Deployment Log Format (`deployment-log.md`)

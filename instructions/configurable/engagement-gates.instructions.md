@@ -1,11 +1,11 @@
 ---
-description: "Use when running engagement gates, checking scope upgrade thresholds, building subagent prompts for validation or planning, or determining deployment workflow details. Defines Gate 1-4 criteria, scope upgrade rules, and platform configuration."
+description: "Use when running engagement gates, checking scope upgrade thresholds, building subagent prompts for validation or planning, or determining deployment workflow details. Defines Gate 1-5 criteria, scope upgrade rules, and platform configuration."
 applyTo: ".github/agents/delivery-lead.agent.md"
 ---
 
 # Engagement Gates
 
-Gate definitions, subagent prompt templates, scope upgrade thresholds, and platform configuration for the @delivery-lead engagement lifecycle.
+Gate definitions, subagent prompt templates, scope upgrade thresholds, and platform configuration for the @delivery-lead engagement lifecycle. Five gates total: Requirements Validation, Plan Approval, Commercial Readiness, Test Deployment, Production.
 
 ## Gate Definitions
 
@@ -42,9 +42,30 @@ Gate definitions, subagent prompt templates, scope upgrade thresholds, and platf
 
 **Decision options:** Approve / Revise / Reject / Split into smaller sprints
 
-### Gate 3 — Test Deployment
+### Gate 3 — Commercial Readiness
 
-**Trigger:** After @sprint-lead completes and test deployment workflow finishes.
+**Trigger:** After @sprint-lead completes sprint execution. Re-runs the commercial 5-test against actual built scope — not the proposed scope from intake.
+
+**What to check:**
+- Scope delta: what was actually built vs. what was proposed at intake
+- Commercial 5-test verdicts against the as-built feature set:
+  1. Market size and serviceable share — still valid for what shipped?
+  2. Pricing model fit and willingness to pay — does the implementation match the monetisation assumption?
+  3. CAC and channel viability — acquisition cost unchanged by implementation choices?
+  4. LTV by tier and unit economics — unit economics hold for what was built?
+  5. Defensibility and regulatory cost — new surface area changes the risk profile?
+- Any scope additions or removals that occurred during execution
+
+**Present to CTO:**
+- Scope delta summary (proposed vs. built)
+- Commercial 5-test re-run verdict (VALIDATED / CONDITIONAL / REJECTED) with per-test reasoning
+- Recommendation: proceed to test deployment or revise
+
+**Decision options:** Approve for test deployment / Revise scope / Abort
+
+### Gate 4 — Test Deployment
+
+**Trigger:** After Gate 3 approval and test deployment workflow finishes.
 
 **What to check:**
 - Test deployment workflow status (via `gh` CLI)
@@ -58,7 +79,7 @@ Gate definitions, subagent prompt templates, scope upgrade thresholds, and platf
 
 **Decision options:** Approve for production / Request fixes / Abort
 
-### Gate 4 — Production
+### Gate 5 — Production
 
 **Trigger:** After merge to {{git.main_branch}} and production deployment workflow finishes.
 
@@ -145,6 +166,42 @@ Return a JSON summary:
   "filesAffected": N,
   "risks": ["..."],
   "complianceIssues": ["..."]
+}
+```
+
+### Commercial Readiness Subagent (Gate 3)
+
+```
+[SUBAGENT-MODE] [WRITE:ANALYSIS-ONLY]
+
+Read `{{paths.engagements}}{engagement}/brief.md` to retrieve the proposed scope.
+Read the sprint RETRO.md at `{{paths.engagements}}{engagement}/` (or ask @delivery-lead
+for the sprint reference) to determine what was actually built.
+
+Re-run the commercial 5-test framework against the AS-BUILT scope:
+
+1. Market size and serviceable share — still valid for what shipped?
+2. Pricing model fit and willingness to pay — does the implementation match the monetisation assumption?
+3. CAC and channel viability — acquisition cost unchanged by implementation choices?
+4. LTV by tier and unit economics — unit economics hold for what was built?
+5. Defensibility and regulatory cost — new surface area changes the risk profile?
+
+Also identify:
+- Scope delta: features proposed but not built, and features built but not in brief
+- Any changes that affect commercial assumptions from the original intake
+
+Return a JSON summary:
+{
+  "verdict": "VALIDATED|CONDITIONAL|REJECTED",
+  "scopeDelta": { "added": ["..."], "dropped": ["..."] },
+  "testResults": [
+    { "test": "Market size", "verdict": "PASS|FAIL|N/A", "reasoning": "..." },
+    { "test": "Pricing fit", "verdict": "PASS|FAIL|N/A", "reasoning": "..." },
+    { "test": "CAC/channel", "verdict": "PASS|FAIL|N/A", "reasoning": "..." },
+    { "test": "LTV/unit economics", "verdict": "PASS|FAIL|N/A", "reasoning": "..." },
+    { "test": "Defensibility", "verdict": "PASS|FAIL|N/A", "reasoning": "..." }
+  ],
+  "recommendation": "..."
 }
 ```
 
