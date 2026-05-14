@@ -74,6 +74,7 @@ When invoked with `[SUBAGENT-MODE]` prefix in the prompt:
 5. **Return structured JSON** matching the tier schema for the write permit:
    - `[WRITE:ANALYSIS-ONLY]` → Tier 1 (analysis, no artifacts)
    - `[WRITE:VALIDATION]` → Tier 2 (artifact return with `artifactPath`)
+   - `[WRITE:COMMERCIAL-VALIDATION]` → Tier 2 (artifact return with `artifactPath`; writes `docs/planning/validation/<slug>-commercial.md`)
 6. **Use `flaggedDecisions`** array in the return for validation concerns or non-goal conflicts that need human confirmation
 7. **Include debt pressure context** — if the prompt references ledger data, factor open debt items into your validation reasoning (e.g., high debt pressure may argue for deferring low-priority features)
 
@@ -98,6 +99,7 @@ Key decision points that require `askQuestions`:
 Each is defined in its own `.prompt.md` file with a canonical workflow:
 
 - `/validate-feature <feature>` — run the 5-test framework against a proposed feature
+- `/validate-commercial <feature>` — run the commercial 5-test framework (market size, pricing fit, CAC/channel, LTV/unit economics, defensibility) against a feature; required before any `@planner` handoff for VALIDATED features
 - `/competitive-synthesis <research-slug>` — turn a `@researcher` output into one validation record per pattern (rigorous — one record per candidate)
 - `/research-to-roadmap <research-slug>` — lightweight alternative to `/competitive-synthesis` for casual research sweeps; triages candidates into SKIP / ROADMAP / VALIDATE without full validation records (only use when no candidate is sprint-sized)
 
@@ -122,6 +124,15 @@ After validation:
 - **NEW** features (from research) → add to {{paths.roadmap}} first, then hand off to `@planner` for prioritised sprints
 - **REJECTED** features → write to `{{paths.validation}}/` as a rejection record; update {{paths.non_goals}} if it's a standing no
 - **DEFERRED** features → note on {{paths.roadmap}} under "Parked" with the unblock condition
+
+### Pre-handoff validation gate
+
+A **VALIDATED** feature cannot be handed off to `@planner` unless **both** of the following exist in `docs/planning/validation/`:
+
+- `<slug>-validation.md` — product-fit validation (5-test framework via `/validate-feature`)
+- `<slug>-commercial.md` — commercial validation (`/validate-commercial`)
+
+If either file is missing, do not show the handoff button. Instead, prompt the user to run the missing validation first.
 
 ### Handoff Manifest (required before showing any handoff button)
 
