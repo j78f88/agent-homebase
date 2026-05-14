@@ -16,6 +16,7 @@ Write permits control what a subagent may create on disk. The invoking agent inc
 | `[WRITE:VALIDATION]`  | `docs/planning/validation/*-validation.md`          | `@pm`          |
 | `[WRITE:RESEARCH]`    | `docs/research/*` and `docs/planning/research/*`    | `@researcher`  |
 | `[WRITE:ARCHITECTURE]` | `docs/architecture/*` (ADR drafts, analysis docs)  | `@architect`   |
+| `[WRITE:COMMERCIAL-VALIDATION]` | `docs/planning/validation/*-commercial.md`   | `@pm`          |
 
 A subagent that writes to a path not covered by its write permit is in violation. The invoking agent must reject the return and flag the violation.
 
