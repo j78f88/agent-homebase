@@ -43,6 +43,30 @@ You have a **powerful tool** with **no process**. That's not engineering — tha
 
 ---
 
+## Introduction
+
+agent-homebase is a portable, multi-agent operating system for software projects that brings structured process to AI coding assistants like GitHub Copilot, Claude Code, Cursor, and OpenAI Codex. Instead of treating these tools as one-off code generators, it turns them into a coordinated delivery team with defined roles, contracts, and quality gates.
+
+### What it does
+The project ships a library of skills, instructions, and agent definitions authored once in plain Markdown, then resolved with project-specific tokens and emitted as copy-ready artifacts for any compatible coding agent. A single config file produces the deploy artifacts you drop into your repository.
+
+You get a set of specialised agent roles you can call by name: a planner that scopes requirements, a PM that validates features against project goals, a sprint-lead that orchestrates implementation cycles, a QA agent that enforces tests and coverage, a reviewer that flags security issues and code smells, a docs agent, plus dedicated agents for architecture, research, bug capture, security, accessibility, performance, and onboarding.
+
+The framework operates in three independent delivery modes layered on a shared protocol. Mode 1 (Team) gives you the interactive agents in your editor. Mode 2 (Orchestration) runs a dispatcher that pulls work from a queue and verifies results without human prompts. Mode 3 (Choreography) coordinates work across many projects with drift control. Each mode installs standalone, so you adopt only what you need.
+
+Underneath, seven JSON schemas validate every artifact at build time, and the protocol layer (protocol-v1, frozen at 2.0.0) enforces structured return contracts so agents pass typed status objects rather than free-form prose. Built-in profiles cover React apps, TypeScript monorepos, and Python APIs, so you can be running in minutes.
+Its purpose
+
+The repo exists to fix the gap between capability and process in AI-assisted development. Today's coding assistants are fast and capable, but they forget conventions between sessions, ship code without tests or reviews, and produce inconsistent results across similar problems. agent-homebase wraps that raw capability in a repeatable software delivery pipeline: plan, validate, implement, test, review, document, deploy. The goal is to make AI assistance behave like a disciplined team rather than a fast but unreliable contractor.
+
+### Why it is important
+Most teams adopting AI coding tools are running powerful models with no governance around them. That works for snippets and prototypes, but it falls apart for production work where quality, security, and consistency matter. agent-homebase is one of the few opinionated, schema-enforced approaches that treats AI agents as part of a real software process rather than a chat sidebar.
+A few things make it notable. Security is built in rather than bolted on, with fourteen automated checks covering CVEs, secret detection, OWASP patterns, SBOM generation, SAST, container scans, IaC misconfigurations, and supply chain audits, each finding tagged with an OWASP remediation class. The architecture is platform-neutral, so the same authored content deploys to Copilot, Claude Code, Cursor, or Codex without rewrites. And the contract-first design means agents return validated structured data, which removes the guesswork and hallucination that usually creep into multi-agent setups.
+
+For anyone using AI assistants for real engineering work, especially across multiple repos or with a team, it offers a path from chaotic prompting to a repeatable, auditable workflow that does not require building an agent framework from scratch.
+
+---
+
 ## 💡 The Solution: A Professional Delivery Team in Your Config
 
 **agent-homebase** is a portable, multi-agent operating system for software projects.
