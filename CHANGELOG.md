@@ -310,7 +310,7 @@ pass.
 
 ## 1.0.0 — 2026-04-26
 
-Initial release. Extracted from the DIY Project Helper monorepo.
+Initial release. Extracted from an internal TypeScript monorepo.
 
 11 skills: pm, planner, sprint-lead, qa, reviewer, architect, researcher, bug, docs, a11y, perf.
 18 instruction files: 6 generic, 12 configurable.

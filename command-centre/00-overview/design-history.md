@@ -48,8 +48,8 @@ command centre/
   02-mode-orchestration/   spec, install-contract, absorption-checklist
   03-mode-choreography/    spec, sync-cli-spec, registry-schema, meta-agents,
                            workspace-template
-  04-harvest/     verk-web-audit, backport-candidates, project-local-keep
-  05-onboarding/  verk-web, diy-project-helper, verk-v2
+  04-harvest/     web-audit, backport-candidates, project-local-keep
+  05-onboarding/  reference-web, project-helper, reference-web-v2
   06-migration/   absorption-runbook, graduation-runbook, rollback
   decisions/      0001-0004 ADRs
 ```
@@ -66,8 +66,8 @@ Key v1 design decisions:
 - **Build a sync CLI for Mode 3** with six commands —
   `register / deploy / diff / status / harvest / unregister` — to manage
   the program-of-works registry and propagation.
-- **Treat harvest as a phase** (Phase 4) — a one-shot audit of Verk Web's
-  mature patterns, with the results back-ported to substrate.
+- **Treat harvest as a phase** (Phase 4) — a one-shot audit of the reference
+  web project's mature patterns, with the results back-ported to substrate.
 
 v1 was committed and pushed. The author then asked for external validation
 of four open recommendations before locking in the ADRs.

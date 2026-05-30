@@ -164,7 +164,7 @@ Gate definitions above reference "the platform's deployment workflow" and "autom
 - **Production deploy workflow:** `deploy-azure-swa.yml` ({{platform.ci_workflow_display_name}})
 - **Automated test suite:** Playwright E2E (chromium + iPhone 14 viewport)
 - **Test environment URL:** Azure SWA test instance URL from workflow output
-- **Production URL:** `https://gray-glacier-029377c00.7.azurestaticapps.net`
+- **Production URL:** `{{platform.prod_url}}`
 - **CI workflow:** `ci.yml`
 - **Deploy check commands:**
   ```bash

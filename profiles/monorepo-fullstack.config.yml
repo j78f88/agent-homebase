@@ -1,5 +1,5 @@
 # monorepo-fullstack.config.yml
-# Example profile: Mirrors a real monorepo setup (originally DIY Project Helper).
+# Example profile: Mirrors a typical TypeScript monorepo setup.
 # Use as a reference when onboarding the library to a similar TypeScript monorepo.
 # Copy to project.config.yml and replace project.name, namespace, URLs, and repo with your values.
 
@@ -7,11 +7,11 @@ editor:
   target: "both"                    # "vscode" | "claude-code" | "both"
 
 project:
-  name: "DIY Project Helper"
+  name: "Example Monorepo"
   language: "TypeScript"
   framework: "React + Vite + Expo"
   locale: "en-AU"
-  namespace: "@diy"                 # Monorepo package namespace
+  namespace: "@example"             # Monorepo package namespace
 
 paths:
   sprints: "sprints/"
@@ -108,8 +108,8 @@ commands:
   build: "pnpm build"
   e2e: "pnpm test:e2e"
   coverage: "pnpm test:coverage"
-  coverage_store: "pnpm --filter @diy/store test:coverage"
-  coverage_web: "pnpm --filter @diy/web test:coverage"
+  coverage_store: "pnpm --filter @example/store test:coverage"
+  coverage_web: "pnpm --filter @example/web test:coverage"
   depcheck: "npx depcheck --json"
   # Security gates (used by @security)
   sbom_generate: "syft . -o cyclonedx-json"
