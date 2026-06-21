@@ -30,6 +30,9 @@ Desktop.ini
 *.pem
 *.key
 
+# Local project config generated per adopter/project
+project.config.yml
+
 # Coverage / test
 .coverage
 htmlcov/

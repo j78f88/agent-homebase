@@ -10,7 +10,7 @@ agent-homebase is a library of agent skills, instructions, and supporting infras
 
 - **13 specialized skills** for software delivery workflows (canonical source of truth)
 - **13 agent wrappers** for VS Code (generated from skills with tool restrictions and subagent delegation)
-- **25 instruction files** for governance and contracts
+- **25 instruction files** for governance and contracts: 11 generic files plus 14 configurable files
 - **4-phase implementation** for production-grade execution
 
 ### Dual-Platform Architecture
@@ -85,7 +85,7 @@ Four phases add capabilities incrementally:
 | Phase | Capability | Required |
 |-------|------------|----------|
 | 0 | Security validation, observability | ✅ |
-| 1 | Formal contracts, policy engine | ✅ |
+| 1 | Formal contracts and validator checks | ✅ |
 | 2 | Durable execution, checkpoints | ○ |
 | 3 | Sandboxed execution | ○ |
 | 4 | Deterministic replay | ○ |
@@ -127,9 +127,9 @@ Four phases add capabilities incrementally:
 
 **Problem**: Agents return inconsistent data, making orchestration brittle.
 
-**Solution**: JSON Schema validation + Rego policies:
+**Solution**: JSON Schema validation plus Python validators:
 - Return schemas enforce structure
-- Policies enforce business rules (feature/bug balance, capacity)
+- Validator checks enforce cross-field rules and write-permit boundaries
 - FSM ensures valid state transitions
 
 ### Phase 2: Durable Execution
@@ -162,7 +162,15 @@ Four phases add capabilities incrementally:
 
 ---
 
-## Why Rego for Policies?
+## Policy Validation Status
+
+The current implementation validates contracts with JSON Schema and Python
+validators. There are no Rego policy files in the repository at this point.
+Older design notes considered Open Policy Agent/Rego for policy-as-code, but
+the build and test path currently relies on `init.py`, `jsonschema`, and the
+phase libraries under `src/`.
+
+## Why Policy-as-Code Was Considered?
 
 ### Alternatives Considered
 
@@ -173,16 +181,16 @@ Four phases add capabilities incrementally:
 | **JSON Schema** | Standard | Only validates structure, not logic |
 | **Rego** | Powerful, auditable, standard | Learning curve |
 
-### Decision: Rego
+### Candidate: Rego
 
-Rego (Open Policy Agent) provides:
+Rego (Open Policy Agent) would provide:
 
 1. **Declarative rules**: Easy to read and audit
 2. **Composition**: Policies can reference each other
 3. **Testing**: Built-in test framework
 4. **Ecosystem**: Industry standard for policy-as-code
 
-Example policy:
+Example policy sketch:
 ```rego
 # Violation if feature allocation exceeds cap
 violation[msg] {
@@ -363,8 +371,8 @@ project.config.yml
 Layer 1: Config Validation (init.py)
     ↓ Command whitelist, path validation, secret scanning
     
-Layer 2: Policy Enforcement (Rego)
-    ↓ Business rules, composition constraints
+Layer 2: Contract Enforcement (JSON Schema + Python validators)
+    ↓ Return schemas, write permits, cross-field rules
     
 Layer 3: Sandbox Isolation (Docker)
     ↓ Resource limits, network policies, capabilities
@@ -405,4 +413,4 @@ Layer 4: Audit Trail (JSONL logs)
 ## Cross-References
 
 - [SKILL_FLOW.md](SKILL_FLOW.md) — Execution diagrams
-- [POLICIES.md](POLICIES.md) — Policy file documentation
+- [DETERMINISM_GUIDE.md](DETERMINISM_GUIDE.md) — Deterministic replay concepts

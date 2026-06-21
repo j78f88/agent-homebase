@@ -386,4 +386,4 @@ sandbox:
 - [CHECKPOINT_GUIDE.md](CHECKPOINT_GUIDE.md) — Sandbox state in checkpoints
 - [DETERMINISM_GUIDE.md](DETERMINISM_GUIDE.md) — Deterministic sandbox execution
 - [tests/test_phase3.py](../tests/test_phase3.py) — Sandbox test suite
-- [POLICIES.md](POLICIES.md) — Security policy definitions
+- [security-checklist.md](../references/security-checklist.md) — Security review checklist

@@ -13,24 +13,44 @@ defer to the contracts described here.
 ## Dev setup
 
 - Python **3.12+**
-- `pip install pyyaml`
-- `pip install -r requirements-dev.txt` (test/lint extras)
+- Create an isolated environment before installing dependencies.
+- Preferred on Linux/WSL, especially when `python -m venv` fails because
+  `ensurepip` is unavailable:
+  ```bash
+  uv venv --python python3.12 .venv
+  source .venv/bin/activate
+  uv pip install -r requirements-dev.txt
+  ```
+- Standard Python environments are also fine:
+  ```bash
+  python -m venv .venv
+  source .venv/bin/activate   # Windows PowerShell: .venv\Scripts\Activate.ps1
+  python -m pip install -r requirements-dev.txt
+  ```
 
 ## Build
 
-```powershell
+```bash
 python init.py --config config/project.config.example.yml
 ```
 
 Outputs go to `resolved/`. Never edit files under `resolved/` by hand —
 they are regenerated on every build.
 
+The example config intentionally includes external security-tool commands
+(`syft`, `trivy`, `checkov`) that are not in the default command whitelist, so
+the build may print security warnings while still passing. Treat `SECURITY:`
+errors as blockers; warnings are advisory unless your project policy says
+otherwise.
+
 ## Test
 
-```powershell
-$env:PYTHONIOENCODING='utf-8'
-python -m pytest tests/ -v
+```bash
+python -m pytest tests/ -q
 ```
+
+Current baseline: `python init.py --config config/project.config.example.yml`
+and `python -m pytest tests/ -q` pass on Python 3.12.
 
 ## Architecture (1 minute)
 

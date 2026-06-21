@@ -14,8 +14,33 @@ ERROR: PyYAML not installed. Run: pip install pyyaml
 
 **Solution:** Install the required dependency:
 ```bash
-pip install pyyaml
+python -m pip install -r requirements.txt
+# or, when using uv:
+uv pip install -r requirements.txt
 ```
+
+For development and tests, install `requirements-dev.txt` instead.
+
+---
+
+### ❌ "ensurepip is not available" while creating `.venv`
+
+```
+The virtual environment was not created successfully because ensurepip is not available.
+```
+
+**Cause:** Some Debian/Ubuntu Python packages omit the `venv` bootstrap pieces.
+
+**Solution:** Use `uv`, which can create the environment without relying on
+`ensurepip`:
+```bash
+uv venv --python python3.12 .venv
+source .venv/bin/activate
+uv pip install -r requirements-dev.txt
+```
+
+If you manage the machine packages directly, installing `python3.12-venv` is
+also valid.
 
 ---
 
@@ -48,6 +73,23 @@ SECURITY: Command 'rm -rf' in 'commands.cleanup' not in whitelist
 **Solution:**
 - Use only whitelisted command prefixes: `npm`, `pnpm`, `yarn`, `pip`, `pytest`, `cargo`, `go`, `dotnet`, `mvn`, `gradle`, `git`, `gh`, `make`, `eslint`, `prettier`, `tsc`, `mypy`, etc.
 - If your command is safe, wrap it in a script and call the script instead
+
+### ⚠️ Security warnings for `syft`, `trivy`, or `checkov` in the sample config
+
+The example config includes optional security-audit commands:
+
+```yaml
+commands:
+  sbom_generate: "syft . -o cyclonedx-json"
+  container_scan: "trivy image --format json"
+  iac_scan: "checkov -d . --output json"
+```
+
+These command prefixes are not in the default whitelist, so `init.py` prints
+warnings. If the output ends with `✓ Security validation passed`, the build is
+valid. To remove the warnings for a project, either install and explicitly
+allow those tools in the validator policy, or change the commands to project
+approved wrappers.
 
 ---
 

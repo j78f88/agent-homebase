@@ -52,7 +52,8 @@ fully manual path edits the config by hand.
 
 ## Prerequisites
 
-- Python 3.12+ with PyYAML (`pip install pyyaml`)
+- Python 3.12+ with dependencies installed from `requirements.txt` or `requirements-dev.txt`
+- A virtual environment tool (`uv` recommended on Linux/WSL; `venv` also works)
 - A `.github/agents/` directory in your project (create it if absent)
 - A `.github/instructions/` directory in your project (create it if absent)
 

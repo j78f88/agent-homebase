@@ -226,29 +226,36 @@ When setup is verified, it removes itself.
 
 First time in the repo? Clone it, open the folder in your agent, and paste the sentence above.
 
-```powershell
+```bash
 git clone https://github.com/j78f88/agent-homebase.git
+cd agent-homebase
 ```
 
 **Rather drive it yourself?** Two terminal paths produce the same build.
 
 *Guided CLI* — interactive prompts, no agent:
 
-```powershell
-cd agent-homebase
-pip install -r requirements.txt
+```bash
+uv venv --python python3.12 .venv
+source .venv/bin/activate
+uv pip install -r requirements-dev.txt
 python init.py --quick-setup          # prompts for name, repo, branch, namespace
 ```
 
 *Full manual* — edit the config yourself, most control:
 
-```powershell
-cd agent-homebase
-pip install -r requirements.txt
+```bash
+uv venv --python python3.12 .venv
+source .venv/bin/activate
+uv pip install -r requirements-dev.txt
 
-# Choose a profile and generate resolved files
-python init.py --config profiles/python-api.config.yml
+# Choose a profile, customize it, then generate resolved files
+cp profiles/python-api.config.yml config/my-project.config.yml
+python init.py --config config/my-project.config.yml
 # → resolved/skills, resolved/instructions, resolved/agents
+
+# Verify the build
+python -m pytest tests/ -q
 
 # Copy to your project
 cp -r resolved/skills/* ../.github/agents/
@@ -259,6 +266,8 @@ cp -r resolved/agents/* ../.github/agents/
 cp starters/SPRINTS.md ../
 cp starters/BACKLOG_LEDGER.md ../docs/planning/
 ```
+
+If you prefer `venv`/`pip`, see [docs/QUICKSTART.md](docs/QUICKSTART.md) for the cross-platform setup.
 
 **Then use naturally:**
 ```
