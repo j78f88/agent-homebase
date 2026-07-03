@@ -102,10 +102,13 @@ Run **@reviewer** with `--commit-range {kickoff_commit_sha}..HEAD`.
 ## Phase 5: Documentation (Subagent Delegation)
 
 1. Run **@docs** for full Documentation Sync Workflow for Sprint N.
-2. Update memory files if needed (lightweight, main context).
-3. Do not commit yet — Phase 6 commits.
-4. Determine push target: engagement → `{{git.develop_branch}}`; else → `{{git.main_branch}}`.
-5. Interactive: push and verify CI. Autopilot: do not push.
+2. Require @docs to return a **Documentation Closeout** report covering all five gates from `sprint-docs-format.instructions.md`: user/operator surface, developer/operator runbook, sprint/project state, evidence captured, and explicit no-docs reason.
+3. Treat missing, vague, or unevidenced closeout entries as blocking. Re-run @docs or spawn a targeted docs fix subagent until all five gates are satisfied.
+4. Update PLAN.md Quality Gates with `docs-closeout` PASS, timestamp, and evidence links.
+5. Update memory files if needed (lightweight, main context).
+6. Do not commit yet — Phase 6 commits.
+7. Determine push target: engagement → `{{git.develop_branch}}`; else → `{{git.main_branch}}`.
+8. Interactive: push and verify CI. Autopilot: do not push.
 
 ---
 

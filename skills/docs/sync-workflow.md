@@ -45,6 +45,18 @@ Run this COMPLETE workflow every time you are asked to sync/update docs. Check e
 
 15. For every `[text](path)` link in files you touched, verify the target exists. Fix or remove broken links.
 
-## Step 7: Commit
+## Step 7: Documentation Closeout
+
+Before commit/return, produce the required Documentation Closeout block:
+
+- User/operator surface
+- Developer/operator runbook
+- Sprint/project state
+- Evidence captured
+- Explicit no-docs reason, if no docs changed
+
+All five entries must be concrete and evidence-backed. If no docs changed, the no-docs reason must explain why the shipped work required no documentation update.
+
+## Step 8: Commit
 
 Commit per `{{paths.instructions_dir}}/commit-conventions.instructions.md` (e.g., `docs: sync documentation for Sprint N completion`).

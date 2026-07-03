@@ -62,12 +62,14 @@ Files: `path/to/file.ts`, `path/to/other.tsx`
 ## Quality Gates
 
 - [x] standard (typecheck, lint, test, coverage, e2e)
+- [x] docs-closeout (user/operator docs, developer runbook, sprint state, evidence, no-docs reasons)
 - [x] a11y (accessibility audit)
 - [ ] perf (bundle size, dependencies)
 - [ ] migrations (store schema migration verification)
 ```
 
 - `standard` is always checked.
+- `docs-closeout` is always checked before a sprint is Done. It records the user/operator surface, developer/runbook surface, sprint/project state, evidence captured, and explicit non-applicable reasons if docs are not updated.
 - `a11y` is recommended-default when the sprint touches `{{paths.web_app_dir}}/src/components/**`.
 - `migrations` is recommended-default when the sprint adds or modifies persisted store fields in `packages/store/src/`.
 - Unknown gate names are flagged CRITICAL by `@sprint-lead` Phase 3.

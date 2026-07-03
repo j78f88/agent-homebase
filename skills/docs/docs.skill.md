@@ -171,6 +171,7 @@ Use `#tool:askQuestions` at decision points:
 ## Documentation Sync Workflow
 
 Follow the complete workflow in `skills/docs/sync-workflow.md`. Run every step — do not skip any file. Check each one, and if it needs no changes, confirm it is current and move on.
+End every sprint docs sync with a five-gate `## Documentation Closeout`: user/operator surface, developer/operator runbook, sprint/project state, evidence captured, and explicit no-docs reason when no docs changed. Each entry is `PASS` or `N/A` with evidence or a concrete reason; missing/vague entries block closeout.
 
 ## Common Rationalizations
 
